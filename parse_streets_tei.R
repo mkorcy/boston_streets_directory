@@ -4,17 +4,22 @@ library(tibble)
 source('data_files.R')
 source('utils.R')
 
+initialize_dataset <- function() {
+  bsd_data <- tibble(Seq=integer(),
+                     Id=character(),
+                     DisplayName=character(),   
+                     LastName=character(),
+                     FirstName=character(),
+                     OrgName=character(),
+                     RecordType=character(),
+                     City=character(),
+                     State=character(),
+                     Year=character())
+  return(bsd_data)
+}
 parse_bsd_file_to_ds <- function(file) {
-  people <- tibble(Seq=integer(),
-                   Id=character(),
-                   DisplayName=character(),   
-                   LastName=character(),
-                   FirstName=character(),
-                   OrgName=character(),
-                   RecordType=character(),
-                   City=character(),
-                   State=character(),
-                   Year=character())
+  people <- initialize_dataset()
+  
   doc<-xmlParse(file)
   
   # get imprint information
