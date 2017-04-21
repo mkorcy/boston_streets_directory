@@ -1,29 +1,8 @@
 library(XML)
 library(tibble)
 
-
-files = c("UA069.005.DO.00002.archival.xml","UA069.005.DO.00005.archival.xml",
-          "UA069.005.DO.00012.archival.xml","UA069.005.DO.00015.archival.xml",
-          "UA069.005.DO.00017.archival.xml","UA069.005.DO.00018.archival.xml",
-          "UA069.005.DO.00019.archival.xml","UA069.005.DO.00020.archival.xml",
-          "UA069.005.DO.00021.archival.xml")
-
-# Trying to get an idea of how much data I'm dealing with.
-approximate_number_of_entries <- function(files) {
-  s <- c()
-  index <- 0
-  for(file in files) {
-    doc<-xmlParse(file)
-    nodeSet <- getNodeSet(doc, '//div3')
-    s[index] <- length(nodeSet)
-    index <- index + 1
-  }
-  print(sum(s))
-}
-
-# approximate_number_of_entries(files)
-# 1243698
-trim <- function (x) gsub("^\\s+|\\s+$", "", x)
+source('data_files.R')
+source('utils.R')
 
 parse_bsd_file_to_ds <- function(file) {
   people <- tibble(Seq=integer(),
@@ -119,4 +98,3 @@ parse_bsd_file_to_ds <- function(file) {
   }
   return(people)
 }
-#frame2 <- parse_bsd_file_to_ds(files[1])
