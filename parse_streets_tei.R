@@ -49,9 +49,6 @@ parse_bsd_file_to_ds <- function(file) {
       print(display_name)
       print(last_name)
       print(first_name)
-    }, warning=function(cond) {
-      print("warn")
-    }, finally={
     })
     if (is.null(last_name) & is.null(first_name)) {
       # its not a person its an organization
@@ -66,7 +63,7 @@ parse_bsd_file_to_ds <- function(file) {
     
       
       
-    out <- tryCatch(
+    tryCatch(
       {
         people <- add_row(people, Seq=i, Id=id, DisplayName=display_name, 
                           LastName=last_name, FirstName=first_name, 
@@ -79,11 +76,7 @@ parse_bsd_file_to_ds <- function(file) {
         print(display_name)
         print(last_name)
         print(first_name)
-      }, warning=function(cond) {
-        print("warn")
-      }, finally={
-      }
-    )
+      })
     #last_name <- nodeSet[['p']][['persName']][['surname']][1]$text
     #first_name <- nodeSet[['p']][['persName']][['foreName']][1]$text
     #referencing_string_attrs <- xmlAttrs(nodeSet[['p']][['rs']])
